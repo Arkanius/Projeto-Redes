@@ -1,0 +1,2 @@
+Senhores por favor, não fazer alterações diretas no branch "master", vamos manter a ordem, criar cada um o seu branch e fazemos as alterações por la, quando estiver estável etc mergeamos as alterações com o master.
+Abs
