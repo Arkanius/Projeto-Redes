@@ -41,3 +41,21 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/ProjetoRedes/nbproject/private/
+
+
+
+.classpath
+.project
+.settings
+.metadata
+*.log
+*.zip
+*.class
+*.swp
+target
+classes
+build
+bin
+classes
+*~
