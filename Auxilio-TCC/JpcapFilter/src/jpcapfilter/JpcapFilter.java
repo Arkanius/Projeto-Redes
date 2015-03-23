@@ -29,7 +29,7 @@ public class JpcapFilter {
  
             //Captura apenas pacotes TCP com origem no host 192.168.1.100 e que
             //tem como destino a porta 80 ou seja HTTP
-            captor.setFilter("tcp and src host 192.168.1.100 and dst port 80", true);
+            captor.setFilter("tcp and src host 192.168.0.22 and dst port 80", true);
  
             //Simples contador.
             int i = 0;
@@ -40,12 +40,12 @@ public class JpcapFilter {
                 //a capturar pacotes TCP.
                 TCPPacket p = (TCPPacket) captor.getPacket();
  
-                //Gera o output com a informação sobre o pacote
+                //Gera o output com a informaÃ§Ã£o sobre o pacote
                 System.out.println("FONTE: " + p.src_ip.getHostAddress() + ":" + p.src_port + 
                         "   DST: " + p.dst_ip.getHostAddress() +":" + p.dst_port + 
                         "   tSize = " + p.length + " bytes");
  
-                //Caso o pacote contenha dados este são impressos e o programa para.
+                //Caso o pacote contenha dados este sÃ£o impressos e o programa para.
                 if(p.data.length > 0){
                     System.out.println(new String(p.data));
                     break;
