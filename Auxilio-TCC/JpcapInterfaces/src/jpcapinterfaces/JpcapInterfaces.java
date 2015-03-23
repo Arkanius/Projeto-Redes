@@ -1,10 +1,12 @@
+package jpcapinterfaces;
+
 import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;
 import jpcap.NetworkInterfaceAddress;
  
 /**
  *
- * @author Victor
+ * @author magician
  */
 public class JpcapInterfaces {
  
@@ -25,6 +27,8 @@ public class JpcapInterfaces {
     public static void main(String args[]) {
  
         //Obtém a lista de interfaces de rede no sistema.
+        
+        System.out.println(System.getProperty("java.library.path"));
         NetworkInterface[] interfaces = JpcapCaptor.getDeviceList();
  
         for (NetworkInterface ni : interfaces) {
@@ -40,15 +44,19 @@ public class JpcapInterfaces {
             //MAC Address da interface.
             System.out.println("MAC Address: "+ hex2String(ni.mac_address));
  
-            for(NetworkInterfaceAddress a : ni.addresses){
+            for(NetworkInterfaceAddress a : ni.addresses){                
                 //Endereço de IP da interface.
-                System.out.println("IP: " + a.address.getHostAddress());
+                System.out.println("\n\n\nIP: " + a.address.getHostAddress());
                 //Endereço de Broadcast da interface.
                 System.out.println("BroadCast: " + a.broadcast);
-                //Mascara de SubRede.
+                
+                System.out.println("Destinho P2P: " + a.destination);
+//Mascara de SubRede.
+                
+                
                 System.out.println("SubNet: " + a.subnet.getHostAddress());
                 //Em caso de ligações P2P o endereço de destino.
-                System.out.println("Destinho P2P: " + a.destination);
+                
             }          
             System.out.println("-------------------------------------------------n");
         }
