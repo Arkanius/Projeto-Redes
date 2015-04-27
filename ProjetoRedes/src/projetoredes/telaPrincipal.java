@@ -141,10 +141,15 @@ public class telaPrincipal extends javax.swing.JFrame {
      */
     public void iniciarCaptura(boolean state){
          NetworkInterface[] interfaces = JpcapCaptor.getDeviceList();
+         
+         System.out.println("interfaces: "+ interfaces[1]);
  
         try{
             //Abre a interface 0 da lista.
             JpcapCaptor captor = JpcapCaptor.openDevice(interfaces[0], 65535, false, 20);
+            
+            // adicionei um filtro para testar mais tarde, este filtro ira filtrar todos os pacotes que  são tcp e sao do host 192.168.0.16 para todos os servidores
+            captor.setFilter("tcp and src host 192.168.0.16 and dst port 80", true);
  
             //Simples contador.
             int i = 0;
@@ -161,7 +166,12 @@ public class telaPrincipal extends javax.swing.JFrame {
                     System.out.println("Fonte: " + tcp.src_ip.getHostAddress() + ":" + tcp.src_port + 
                             "   DESTINO: " + tcp.dst_ip.getHostAddress() +":" + tcp.dst_port + 
                             "   tSize = " + tcp.length + " bytes");
-                    tcp = null;
+                    tcp = null; 
+                    
+                if(p.data.length > 0){
+                    System.out.println( new String (p.data));
+                }
+                    
                 }
                 //Verifica se o pacote é do tipo UDPPacket
                 else if(p instanceof UDPPacket){
@@ -170,11 +180,11 @@ public class telaPrincipal extends javax.swing.JFrame {
                     UDPPacket udp = (UDPPacket) p;
                     System.out.println("FONTE: " + udp.src_ip.getHostAddress() + ":" + udp.src_port + 
                             "   DESTINO: " + udp.dst_ip.getHostAddress() +":" + udp.dst_port +
-                            "   tSize = " + udp.length + " bytes" + " Endereço de site? : " + udp.dst_ip.isSiteLocalAddress());
+                            "   tSize = " + udp.length + " bytes" + " Endereço de site? : " + udp.sec);
                     udp = null;
                 }
                 i++;
-                
+                                
                 p = null;
                 
                 Thread.sleep(200);
