@@ -24,6 +24,7 @@ public class telaPrincipal extends javax.swing.JFrame {
      */
     public telaPrincipal() {
         initComponents();
+        txtPackagesList.setText("IgorGay");
         
     }
 
@@ -38,7 +39,8 @@ public class telaPrincipal extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        txtPackagesList = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtPackagesList = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,27 +58,30 @@ public class telaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        txtPackagesList.setColumns(20);
+        txtPackagesList.setRows(5);
+        jScrollPane1.setViewportView(txtPackagesList);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(83, 83, 83)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(79, 79, 79))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addComponent(txtPackagesList, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(txtPackagesList, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -88,6 +93,7 @@ public class telaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         iniciarCaptura(true);
+        txtPackagesList.setText("IgorGay2");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -148,7 +154,6 @@ public class telaPrincipal extends javax.swing.JFrame {
             while(true){ // usar o parametro da função
                 //Captura um pacote.
                 p = captor.getPacket();
-                txtPackagesList.setText(null);
                 //Verifica se o pacote é do tipo TCPPacket
                 if(p instanceof TCPPacket){                    
                     System.out.println("TCP");
@@ -156,20 +161,23 @@ public class telaPrincipal extends javax.swing.JFrame {
                     System.out.println("Fonte: " + tcp.src_ip.getHostAddress() + ":" + tcp.src_port + 
                             "   DESTINO: " + tcp.dst_ip.getHostAddress() +":" + tcp.dst_port + 
                             "   tSize = " + tcp.length + " bytes");
- 
+                    tcp = null;
                 }
                 //Verifica se o pacote é do tipo UDPPacket
                 else if(p instanceof UDPPacket){
                     
                     System.out.println("UDP");
                     UDPPacket udp = (UDPPacket) p;
-                    txtPackagesList.setText("FONTE: " + udp.src_ip.getHostAddress() + ":" + udp.src_port + 
+                    System.out.println("FONTE: " + udp.src_ip.getHostAddress() + ":" + udp.src_port + 
                             "   DESTINO: " + udp.dst_ip.getHostAddress() +":" + udp.dst_port +
-                            "   tSize = " + udp.length + " bytes");
+                            "   tSize = " + udp.length + " bytes" + " Endereço de site? : " + udp.dst_ip.isSiteLocalAddress());
+                    udp = null;
                 }
                 i++;
                 
-                Thread.sleep(2000);
+                p = null;
+                
+                Thread.sleep(200);
             }
  
             //Fecha a captura de pacotes.
@@ -188,6 +196,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JTextField txtPackagesList;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtPackagesList;
     // End of variables declaration//GEN-END:variables
 }
