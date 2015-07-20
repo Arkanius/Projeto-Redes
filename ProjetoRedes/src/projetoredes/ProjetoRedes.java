@@ -32,8 +32,15 @@ public class ProjetoRedes {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(ProjetoRedes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        telaPrincipal tp = new telaPrincipal();
-        tp.setVisible(true);
+        
+        
+       // telaPrincipal tp = new telaPrincipal();
+       // tp.setVisible(true);
+        
+      FrmLogin formLogin = new FrmLogin();
+      formLogin.setVisible(true);
+        
+        
     }
     
 }
