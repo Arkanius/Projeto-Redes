@@ -49,13 +49,10 @@ public class FrmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonReset = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPassword = new javax.swing.JPasswordField();
-        jTextUser = new javax.swing.JTextField();
-        jButtonLogin = new javax.swing.JButton();
-        jLabelUser = new javax.swing.JLabel();
         jLabelPassword = new javax.swing.JLabel();
+        jButtonLogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,69 +60,65 @@ public class FrmLogin extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonReset.setText("Reset");
-        getContentPane().add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 90, 40));
-
         jLabel1.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Security Area");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 430, 50));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 430, 50));
 
         jPassword.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        getContentPane().add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 200, 30));
+        getContentPane().add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 290, 30));
 
-        jTextUser.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTextUser.setToolTipText("");
-        jTextUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextUserActionPerformed(evt);
+        jLabelPassword.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabelPassword.setText("Password:");
+        getContentPane().add(jLabelPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 170, 30));
+
+        jButtonLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/padlock_closed.png"))); // NOI18N
+        jButtonLogin.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonLoginMouseMoved(evt);
             }
         });
-        getContentPane().add(jTextUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 200, 30));
-
-        jButtonLogin.setText("Login");
+        jButtonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonLoginMouseExited(evt);
+            }
+        });
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 90, 40));
-
-        jLabelUser.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        jLabelUser.setText("User:");
-        getContentPane().add(jLabelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 170, 30));
-
-        jLabelPassword.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabelPassword.setText("Password:");
-        getContentPane().add(jLabelPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 170, 30));
+        getContentPane().add(jButtonLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 100, 50));
 
         jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 680, 330));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 600, 250));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextUserActionPerformed
-
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-      
-        String user = jTextUser.getText();
-        char[] password = jPassword.getPassword();
+      char[] password = jPassword.getPassword();
         
         boolean ok;
         
-        if (user.equals("fatec") &  checkPassword(password) == true){
+        if (checkPassword(password) == true){
             mainScreen.setVisible(true);
             this.dispose();
         }else{
-            JOptionPane.showMessageDialog(null, "Invalid user or password. ","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid password. ","Error",JOptionPane.ERROR_MESSAGE);
         }
      
       Arrays.fill(password, '0'); // Preenche password com 0 por razões de segurança
     }//GEN-LAST:event_jButtonLoginActionPerformed
+
+    private void jButtonLoginMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseMoved
+       jButtonLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/padlock_open.png")));
+    }//GEN-LAST:event_jButtonLoginMouseMoved
+
+    private void jButtonLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLoginMouseExited
+       jButtonLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/padlock_closed.png")));
+    }//GEN-LAST:event_jButtonLoginMouseExited
 
     /**
      * @param args the command line arguments
@@ -158,18 +151,15 @@ public class FrmLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmLogin().setVisible(true);
-            }
-        });
+        }
+            });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLogin;
-    private javax.swing.JButton jButtonReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelPassword;
-    private javax.swing.JLabel jLabelUser;
     private javax.swing.JPasswordField jPassword;
-    private javax.swing.JTextField jTextUser;
     // End of variables declaration//GEN-END:variables
 }
