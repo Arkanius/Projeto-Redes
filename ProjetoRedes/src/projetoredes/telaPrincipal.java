@@ -149,7 +149,9 @@ public class telaPrincipal extends javax.swing.JFrame {
             JpcapCaptor captor = JpcapCaptor.openDevice(interfaces[0], 65535, false, 20);
             
             // adicionei um filtro para testar mais tarde, este filtro ira filtrar todos os pacotes que  são tcp e sao do host 192.168.0.16 para todos os servidores
-            captor.setFilter("tcp and src host 192.168.0.16 and dst port 80", true);
+            
+            //captor.setFilter("dst port 80", true);
+//            captor.setFilter("tcp and src host 192.168.0.16 and dst port 80", true);
  
             //Simples contador.
             int i = 0;
@@ -159,6 +161,7 @@ public class telaPrincipal extends javax.swing.JFrame {
             while(true){ // usar o parametro da função
                 //Captura um pacote.
                 p = captor.getPacket();
+                
                 //Verifica se o pacote é do tipo TCPPacket
                 if(p instanceof TCPPacket){                    
                     System.out.println("TCP");
@@ -169,7 +172,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                     tcp = null; 
                     
                 if(p.data.length > 0){
-                    System.out.println( new String (p.data));
+                    //System.out.println( new String (p.data));
                 }
                     
                 }
@@ -187,7 +190,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                                 
                 p = null;
                 
-                Thread.sleep(200);
+                //Thread.sleep(200); // comentado para encontrar mais facilmente o pacote
             }
  
             //Fecha a captura de pacotes.
