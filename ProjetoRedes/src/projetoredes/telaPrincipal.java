@@ -151,7 +151,8 @@ public class telaPrincipal extends javax.swing.JFrame {
             // adicionei um filtro para testar mais tarde, este filtro ira filtrar todos os pacotes que  são tcp e sao do host 192.168.0.16 para todos os servidores
             
             //captor.setFilter("dst port 80", true);
-//            captor.setFilter("tcp and src host 192.168.0.16 and dst port 80", true);
+            //captor.setFilter("tcp and src host 192.168.0.16 and dst port 80", true);
+           // captor.setFilter("src host 192.168.0.20", true);
  
             //Simples contador.
             int i = 0;
@@ -163,34 +164,31 @@ public class telaPrincipal extends javax.swing.JFrame {
                 p = captor.getPacket();
                 
                 //Verifica se o pacote é do tipo TCPPacket
-                if(p instanceof TCPPacket){                    
-                    System.out.println("TCP");
+                if(p instanceof TCPPacket){       
                     TCPPacket tcp = (TCPPacket) p;                    
-                    System.out.println("Fonte: " + tcp.src_ip.getHostAddress() + ":" + tcp.src_port + 
+                    System.out.println("Pacote TCP: Fonte: " + tcp.src_ip.getHostAddress() + ":" + tcp.src_port + 
                             "   DESTINO: " + tcp.dst_ip.getHostAddress() +":" + tcp.dst_port + 
                             "   tSize = " + tcp.length + " bytes");
                     tcp = null; 
                     
                 if(p.data.length > 0){
-                    //System.out.println( new String (p.data));
+                    System.out.println( new String (p.data.toString()));
                 }
                     
                 }
                 //Verifica se o pacote é do tipo UDPPacket
                 else if(p instanceof UDPPacket){
-                    
-                    System.out.println("UDP");
                     UDPPacket udp = (UDPPacket) p;
-                    System.out.println("FONTE: " + udp.src_ip.getHostAddress() + ":" + udp.src_port + 
+                    System.out.println("Pacote UDP: Fonte: " + udp.src_ip.getHostAddress() + ":" + udp.src_port + 
                             "   DESTINO: " + udp.dst_ip.getHostAddress() +":" + udp.dst_port +
-                            "   tSize = " + udp.length + " bytes" + " Endereço de site? : " + udp.sec);
+                            "   tSize = " + udp.length + " bytes" + " Endereço de site : " + udp.data.toString());
                     udp = null;
                 }
                 i++;
                                 
                 p = null;
                 
-                //Thread.sleep(200); // comentado para encontrar mais facilmente o pacote
+                Thread.sleep(200); // comentado para encontrar mais facilmente o pacote
             }
  
             //Fecha a captura de pacotes.
