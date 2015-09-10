@@ -168,7 +168,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                     TCPPacket tcp = (TCPPacket) p;                    
                     System.out.println("Pacote TCP: Fonte: " + tcp.src_ip.getHostAddress() + ":" + tcp.src_port + 
                             "   DESTINO: " + tcp.dst_ip.getHostAddress() +":" + tcp.dst_port + 
-                            "   tSize = " + tcp.option);
+                            "   tOption = " + tcp.window);
                     tcp = null; 
                     
                 if(p.data.length > 0){
