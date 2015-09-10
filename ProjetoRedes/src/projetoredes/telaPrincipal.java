@@ -168,7 +168,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                     TCPPacket tcp = (TCPPacket) p;                    
                     System.out.println("Pacote TCP: Fonte: " + tcp.src_ip.getHostAddress() + ":" + tcp.src_port + 
                             "   DESTINO: " + tcp.dst_ip.getHostAddress() +":" + tcp.dst_port + 
-                            "   tSize = " + tcp.length + " bytes");
+                            "   tSize = " + tcp.option);
                     tcp = null; 
                     
                 if(p.data.length > 0){
@@ -181,7 +181,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                     UDPPacket udp = (UDPPacket) p;
                     System.out.println("Pacote UDP: Fonte: " + udp.src_ip.getHostAddress() + ":" + udp.src_port + 
                             "   DESTINO: " + udp.dst_ip.getHostAddress() +":" + udp.dst_port +
-                            "   tSize = " + udp.length + " bytes" + " Endereço de site : " + udp.data.toString());
+                            "   tSize = " + udp.length + " bytes" + " Endereço de site : " + udp.options);
                     udp = null;
                 }
                 i++;
