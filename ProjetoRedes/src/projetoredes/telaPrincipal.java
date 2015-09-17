@@ -168,11 +168,11 @@ public class telaPrincipal extends javax.swing.JFrame {
                     TCPPacket tcp = (TCPPacket) p;                    
                     System.out.println("Pacote TCP: Fonte: " + tcp.src_ip.getHostAddress() + ":" + tcp.src_port + 
                             "   DESTINO: " + tcp.dst_ip.getHostAddress() +":" + tcp.dst_port + 
-                            "   tSize = " + tcp.option);
+                            "   tOption = " + tcp.dst_ip.getHostName());
                     tcp = null; 
                     
                 if(p.data.length > 0){
-                    System.out.println( new String (p.data.toString()));
+                    System.out.println( new String (p.data));
                 }
                     
                 }
