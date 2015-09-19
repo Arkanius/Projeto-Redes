@@ -178,9 +178,9 @@ public class telaPrincipal extends javax.swing.JFrame {
                     udp = null;
                 }
                 
-                if(p.data.length > 0){
-                    System.out.println(new String (p.data));
-                }
+//                if(p.data.length > 0){
+//                    System.out.println(new String (p.data));
+//                }
                 i++;
                                 
                 p = null;
