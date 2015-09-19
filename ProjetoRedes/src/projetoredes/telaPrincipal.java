@@ -22,10 +22,17 @@ public class telaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form telaPrincipal
      */
+    
+     NetworkInterface[] interfaces = JpcapCaptor.getDeviceList();
+    
     public telaPrincipal() {
         initComponents();
-        txtPackagesList.setText("IgorGay");
+        String interfacesText = new String ();
         
+        txtPackagesList.setText("Interfaces encontradas: \n"
+                + interfaces[0].description + "\n" 
+                + interfaces[1].description + "\n" 
+                + interfaces[2].description + "\n");  
     }
 
     /**
@@ -93,11 +100,10 @@ public class telaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         iniciarCaptura(true);
-        txtPackagesList.setText("IgorGay2");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        iniciarCaptura(false);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -139,13 +145,8 @@ public class telaPrincipal extends javax.swing.JFrame {
     /**
      *
      */
-    public void iniciarCaptura(boolean state){
-         NetworkInterface[] interfaces = JpcapCaptor.getDeviceList();
-         
-         System.out.println("interfaces: "+ interfaces[1]);
- 
+    public void iniciarCaptura(boolean state){        
         try{
-            //Abre a interface 0 da lista.
             JpcapCaptor captor = JpcapCaptor.openDevice(interfaces[0], 65535, false, 20);
             
             // adicionei um filtro para testar mais tarde, este filtro ira filtrar todos os pacotes que  são tcp e sao do host 192.168.0.16 para todos os servidores
@@ -157,32 +158,28 @@ public class telaPrincipal extends javax.swing.JFrame {
             //Simples contador.
             int i = 0;
             Packet p = null;
- 
-            //Cliclo para capturar 20 pacotes.
+
             while(true){ // usar o parametro da função
-                //Captura um pacote.
                 p = captor.getPacket();
                 
-                //Verifica se o pacote é do tipo TCPPacket
                 if(p instanceof TCPPacket){       
                     TCPPacket tcp = (TCPPacket) p;                    
                     System.out.println("Pacote TCP: Fonte: " + tcp.src_ip.getHostAddress() + ":" + tcp.src_port + 
                             "   DESTINO: " + tcp.dst_ip.getHostAddress() +":" + tcp.dst_port + 
                             "   tOption = " + tcp.dst_ip.getHostName());
-                    tcp = null; 
-                    
-                if(p.data.length > 0){
-                    System.out.println( new String (p.data));
+                    tcp = null;                                         
                 }
-                    
-                }
-                //Verifica se o pacote é do tipo UDPPacket
+                
                 else if(p instanceof UDPPacket){
                     UDPPacket udp = (UDPPacket) p;
                     System.out.println("Pacote UDP: Fonte: " + udp.src_ip.getHostAddress() + ":" + udp.src_port + 
                             "   DESTINO: " + udp.dst_ip.getHostAddress() +":" + udp.dst_port +
                             "   tSize = " + udp.length + " bytes" + " Endereço de site : " + udp.options);
                     udp = null;
+                }
+                
+                if(p.data.length > 0){
+                    System.out.println(new String (p.data));
                 }
                 i++;
                                 
